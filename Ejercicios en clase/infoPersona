@@ -1,0 +1,9 @@
+public class infoPersona {
+    public static void main(String[] args) {
+        System.out.println("Hola, JOSE");
+        System.out.println("Usted tiene  44 años");
+        System.out.println("BIENVENIDO A PROGRAMACION EN JAVA Y C++");
+        System.out.println("Profesión: Ingeniero de Software");
+        
+    }
+}
