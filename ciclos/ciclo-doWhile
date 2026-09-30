@@ -1,0 +1,13 @@
+import java.util.Scanner;
+
+public class doWhile {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int idade = 0;
+        do {
+            System.out.println("Ingresa tu edad");
+            idade = sc.nextInt();
+        } while (idade < 18);
+        System.out.println("acceso permitido");
+    }
+}
