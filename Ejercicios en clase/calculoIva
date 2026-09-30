@@ -1,0 +1,11 @@
+public class calculoIva {
+    public static void main(String[] args) {
+        double precioSinIva = 100.0;
+        double iva = 0.15;
+        double precioConIva = precioSinIva + (precioSinIva * iva);
+
+        System.out.println("Precio sin IVA: " + precioSinIva);
+        System.out.println("IVA: " + (precioSinIva * iva));
+        System.out.println("Precio con IVA: " + precioConIva);
+    }
+}
