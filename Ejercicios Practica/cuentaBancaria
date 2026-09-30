@@ -1,0 +1,164 @@
+import java.util.Scanner;
+
+class CuentaBancaria {
+    private String numero;
+    private double saldo;
+
+    public CuentaBancaria() {
+        this.numero = "";
+        this.saldo = 0.0;
+    }
+
+    public CuentaBancaria(String numero, double saldoInicial) {
+        this.numero = numero;
+        this.saldo = saldoInicial;
+    }
+
+    public String getNumero() { return numero; }
+    public double getSaldo() { return saldo; }
+
+    public void mostrarDatos() {
+        System.out.println("Cuenta N: " + numero + " | Saldo: $" + saldo);
+    }
+
+    public void recibirDinero(double monto) {
+        saldo += monto;
+        System.out.println("Se recibieron $" + monto + " en la cuenta " + numero);
+    }
+
+    public boolean enviarDinero(double monto) {
+        if (monto > saldo) {
+            System.out.println("Fondos insuficientes en la cuenta " + numero);
+            return false;
+        }
+        saldo -= monto;
+        System.out.println("Se enviaron $" + monto + " desde la cuenta " + numero);
+        return true;
+    }
+}
+
+class Cliente {
+    private String dni;
+    private CuentaBancaria[] cuentas;
+    private int cantidadCuentas;
+
+    public Cliente(String dni) {
+        this.dni = dni;
+        this.cuentas = new CuentaBancaria[3];
+        this.cantidadCuentas = 0;
+    }
+
+    public String getDni() { return dni; }
+    public int getCantidadCuentas() { return cantidadCuentas; }
+
+    public void crearCuenta(String numero, double saldoInicial) {
+        if (cantidadCuentas < 3) {
+            cuentas[cantidadCuentas] = new CuentaBancaria(numero, saldoInicial);
+            cantidadCuentas++;
+        } else {
+            System.out.println("El cliente ya tiene el maximo de 3 cuentas.");
+        }
+    }
+
+    public CuentaBancaria getCuenta(int indice) {
+        if (indice >= 0 && indice < cantidadCuentas) {
+            return cuentas[indice];
+        }
+        return null;
+    }
+
+    public void listarCuentas() {
+        for (int i = 0; i < cantidadCuentas; i++) {
+            System.out.print((i + 1) + ". ");
+            cuentas[i].mostrarDatos();
+        }
+    }
+}
+
+public class Ejercicio2 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("=== SISTEMA DE CUENTAS BANCARIAS ===");
+        System.out.print("Ingrese el DNI del cliente: ");
+        String dni = sc.next();
+
+        Cliente cliente = new Cliente(dni);
+
+        System.out.print("Cuantas cuentas desea registrar (maximo 3)? ");
+        int cantidad = sc.nextInt();
+        if (cantidad > 3) cantidad = 3;
+
+        for (int i = 0; i < cantidad; i++) {
+            System.out.print("Numero de la cuenta " + (i + 1) + ": ");
+            String numero = sc.next();
+            System.out.print("Saldo inicial: ");
+            double saldoInicial = sc.nextDouble();
+            cliente.crearCuenta(numero, saldoInicial);
+        }
+
+        int opcion = -1;
+        while (opcion != 5) {
+            System.out.println("\nCliente DNI: " + cliente.getDni());
+            cliente.listarCuentas();
+
+            System.out.print("\nSeleccione una cuenta (1-" + cliente.getCantidadCuentas() + "): ");
+            int seleccion = sc.nextInt() - 1;
+
+            CuentaBancaria cuenta = cliente.getCuenta(seleccion);
+            if (cuenta == null) {
+                System.out.println("Cuenta invalida.");
+                continue;
+            }
+
+            System.out.println("\n--- MENU ---");
+            System.out.println("1. Ver atributos de la cuenta");
+            System.out.println("2. Enviar dinero");
+            System.out.println("3. Recibir dinero");
+            System.out.println("4. Transferencia entre cuentas");
+            System.out.println("5. Salir");
+            System.out.print("Opcion: ");
+            opcion = sc.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    cuenta.mostrarDatos();
+                    break;
+                case 2: {
+                    System.out.print("Monto a enviar: ");
+                    double monto = sc.nextDouble();
+                    cuenta.enviarDinero(monto);
+                    break;
+                }
+                case 3: {
+                    System.out.print("Monto a recibir: ");
+                    double monto = sc.nextDouble();
+                    cuenta.recibirDinero(monto);
+                    break;
+                }
+                case 4: {
+                    System.out.print("Seleccione cuenta destino (1-" + cliente.getCantidadCuentas() + "): ");
+                    int destino = sc.nextInt() - 1;
+                    CuentaBancaria cuentaDestino = cliente.getCuenta(destino);
+                    if (cuentaDestino == null || cuentaDestino == cuenta) {
+                        System.out.println("Cuenta destino invalida.");
+                        break;
+                    }
+                    System.out.print("Monto a transferir: ");
+                    double monto = sc.nextDouble();
+                    if (cuenta.enviarDinero(monto)) {
+                        cuentaDestino.recibirDinero(monto);
+                    }
+                    break;
+                }
+                case 5:
+                    System.out.println("Saliendo del sistema...");
+                    break;
+                default:
+                    System.out.println("Opcion invalida.");
+            }
+        }
+
+        sc.close();
+    }
+}
