@@ -1,0 +1,101 @@
+import java.util.Scanner;
+public class cineEntradas {
+    public static void main(String[] args) {
+
+        Scanner entrada = new Scanner(System.in);
+
+        int opcion;
+        int edad;
+        double precio = 0;
+        double precioFinal;
+        double total = 0;
+
+        do {
+            System.out.println("\n===== CINE =====");
+            System.out.println("1. 2D - $5.00");
+            System.out.println("2. 3D - $7.50");
+            System.out.println("3. IMAX - $10.00");
+            System.out.println("4. Finalizar compra");
+            System.out.print("Seleccione una opcion: ");
+            opcion = entrada.nextInt();
+
+            switch (opcion) {
+
+                case 1:
+                    precio = 5.00;
+                    System.out.print("Ingrese la edad del cliente: ");
+                    edad = entrada.nextInt();
+
+                    if (edad >= 0 && edad <= 120) {
+                        if (edad < 12) {
+                            precioFinal = precio - (precio * 0.30);
+                        } else if (edad >= 65) {
+                            precioFinal = precio - (precio * 0.25);
+                        } else {
+                            precioFinal = precio;
+                        }
+
+                        total = total + precioFinal;
+                        System.out.printf("Precio de la entrada: $%.2f%n", precioFinal);
+                    } else {
+                        System.out.println("Edad invalida.");
+                    }
+                    break;
+
+                case 2:
+                    precio = 7.50;
+                    System.out.print("Ingrese la edad del cliente: ");
+                    edad = entrada.nextInt();
+
+                    if (edad >= 0 && edad <= 120) {
+                        if (edad < 12) {
+                            precioFinal = precio - (precio * 0.30);
+                        } else if (edad >= 65) {
+                            precioFinal = precio - (precio * 0.25);
+                        } else {
+                            precioFinal = precio;
+                        }
+
+                        total = total + precioFinal;
+                        System.out.printf("Precio de la entrada: $%.2f%n", precioFinal);
+                    } else {
+                        System.out.println("Edad invalida.");
+                    }
+                    break;
+
+                case 3:
+                    precio = 10.00;
+                    System.out.print("Ingrese la edad del cliente: ");
+                    edad = entrada.nextInt();
+
+                    if (edad >= 0 && edad <= 120) {
+                        if (edad < 12) {
+                            precioFinal = precio - (precio * 0.30);
+                        } else if (edad >= 65) {
+                            precioFinal = precio - (precio * 0.25);
+                        } else {
+                            precioFinal = precio;
+                        }
+
+                        total = total + precioFinal;
+                        System.out.printf("Precio de la entrada: $%.2f%n", precioFinal);
+                    } else {
+                        System.out.println("Edad invalida.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("Compra finalizada.");
+                    break;
+
+                default:
+                    System.out.println("Opcion invalida.");
+            }
+
+        } while (opcion != 4);
+
+        System.out.printf("Total final de la compra: $%.2f%n", total);
+
+        entrada.close();
+    }
+}
