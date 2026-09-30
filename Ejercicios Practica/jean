@@ -1,0 +1,121 @@
+import java.util.Scanner;
+
+class Jean {
+    private String codigo;
+    private String color;
+    private String talla;
+    private boolean tenido;
+    private int cantidadTenidos;
+    private double precio;
+    private int cantidadBotones;
+    private double humedad;
+    private String estadoTela;
+
+    public Jean(String codigo, String color, String talla, boolean tenido, int cantidadTenidos,
+                double precio, int cantidadBotones, double humedad, String estadoTela) {
+        this.codigo = codigo;
+        this.color = color;
+        this.talla = talla;
+        this.tenido = tenido;
+        this.cantidadTenidos = cantidadTenidos;
+        this.precio = precio;
+        this.cantidadBotones = cantidadBotones;
+        this.humedad = humedad;
+        this.estadoTela = estadoTela;
+    }
+
+    public void mostrarDatos() {
+        System.out.println("\n--- DATOS DEL JEAN ---");
+        System.out.println("Codigo: " + codigo);
+        System.out.println("Color: " + color);
+        System.out.println("Talla: " + talla);
+        System.out.println("Tenido: " + (tenido ? "Si" : "No"));
+        System.out.println("Cantidad de tenidos: " + cantidadTenidos);
+        System.out.println("Precio: $" + precio);
+        System.out.println("Cantidad de botones: " + cantidadBotones);
+        System.out.println("Humedad: " + humedad + "%");
+        System.out.println("Estado de la tela: " + estadoTela);
+    }
+
+    public void lavar() {
+        if (cantidadTenidos > 0) {
+            cantidadTenidos--;
+            humedad += 20;
+            if (humedad > 100) humedad = 100;
+            System.out.println("El jean fue lavado. Tenidos restantes: " + cantidadTenidos);
+        } else {
+            System.out.println("El jean ya no tiene tenidos que perder.");
+        }
+    }
+
+    public void secar() {
+        if (humedad > 0) {
+            humedad -= 25;
+            if (humedad < 0) humedad = 0;
+            System.out.println("El jean fue secado. Humedad actual: " + humedad + "%");
+        } else {
+            System.out.println("El jean ya esta seco.");
+        }
+    }
+}
+
+public class Ejercicio3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("=== REGISTRO DE JEAN ===");
+        System.out.print("Codigo: ");
+        String codigo = sc.next();
+        System.out.print("Color: ");
+        String color = sc.next();
+        System.out.print("Talla: ");
+        String talla = sc.next();
+        System.out.print("Fue tenido? (s/n): ");
+        String respuestaTenido = sc.next();
+        boolean tenido = respuestaTenido.equalsIgnoreCase("s");
+        System.out.print("Cantidad de tenidos: ");
+        int cantidadTenidos = sc.nextInt();
+        System.out.print("Precio: ");
+        double precio = sc.nextDouble();
+        System.out.print("Cantidad de botones: ");
+        int cantidadBotones = sc.nextInt();
+        System.out.print("Humedad actual (%): ");
+        double humedad = sc.nextDouble();
+        System.out.print("Estado de la tela: ");
+        String estadoTela = sc.next();
+
+        Jean jean = new Jean(codigo, color, talla, tenido, cantidadTenidos, precio,
+                cantidadBotones, humedad, estadoTela);
+
+        int opcion;
+        do {
+            System.out.println("\n--- MENU JEAN ---");
+            System.out.println("1. Mostrar datos");
+            System.out.println("2. Lavar");
+            System.out.println("3. Secar");
+            System.out.println("4. Salir");
+            System.out.print("Opcion: ");
+            opcion = sc.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    jean.mostrarDatos();
+                    break;
+                case 2:
+                    jean.lavar();
+                    break;
+                case 3:
+                    jean.secar();
+                    break;
+                case 4:
+                    System.out.println("Programa finalizado.");
+                    break;
+                default:
+                    System.out.println("Opcion invalida.");
+            }
+
+        } while (opcion != 4);
+
+        sc.close();
+    }
+}
