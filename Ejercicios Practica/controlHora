@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class Ejercicio1 {
+
+    static void mostrarHora(int h, int m, int s) {
+        System.out.printf("Hora registrada: %02d:%02d:%02d%n", h, m, s);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int hora, minutos, segundos;
+        String respuesta;
+
+        System.out.println("=== CONTROL DE HORA ===");
+        System.out.print("Ingrese la hora (0-23): ");
+        hora = sc.nextInt();
+        System.out.print("Ingrese los minutos (0-59): ");
+        minutos = sc.nextInt();
+        System.out.print("Ingrese los segundos (0-59): ");
+        segundos = sc.nextInt();
+
+        mostrarHora(hora, minutos, segundos);
+
+        do {
+            System.out.print("Desea cambiar la hora? (s/n): ");
+            respuesta = sc.next();
+
+            if (respuesta.equalsIgnoreCase("s")) {
+                System.out.print("Ingrese la nueva hora (0-23): ");
+                hora = sc.nextInt();
+                System.out.print("Ingrese los nuevos minutos (0-59): ");
+                minutos = sc.nextInt();
+                System.out.print("Ingrese los nuevos segundos (0-59): ");
+                segundos = sc.nextInt();
+
+                mostrarHora(hora, minutos, segundos);
+            }
+
+        } while (respuesta.equalsIgnoreCase("s"));
+
+        System.out.println("Programa finalizado.");
+        sc.close();
+    }
+}
