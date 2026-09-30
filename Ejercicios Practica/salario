@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class salario {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double salario = 0.0;
+        int empleados = 0;
+        double promedioSalario = 0 ;
+        System.out.println("Ingrese un salario negativo para terminar el programa");
+        while (salario >= 0) {
+            System.out.println("Ingrese el salario del empleado: ");
+            salario = scanner.nextDouble();
+            if (salario >= 0) {
+                empleados++;
+                promedioSalario += salario; 
+            }
+        }
+        if (empleados > 0) {
+            promedioSalario /= empleados;
+            System.out.println("El número de empleados ingresados es: " + empleados);
+            System.out.println("la suma de los salarios ingresados es: " + promedioSalario * empleados);
+            System.out.println("El salario promedio es: " + promedioSalario);
+        } else {
+            System.out.println("No se ingresaron salarios válidos.");
+        }
+
+    }
+}
