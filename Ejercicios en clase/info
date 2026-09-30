@@ -1,0 +1,9 @@
+public class holaMundo {
+
+        public static void main(String[] args) {
+            System.out.println( "holaMundo");
+            System.out.println( "mi primer programa en java");
+            System.out.println("Universidad Tecnica d Ambato");
+        }
+    
+}
